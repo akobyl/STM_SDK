@@ -1,0 +1,3 @@
+option('family', type : 'combo', choices : ['g4'], value : 'g4')
+option('chip', type : 'combo', choices : ['stm32g474', 'stm32g491'], value : 'stm32g474')
+option('peripherals', type : 'array', choices : ['adc', 'bus', 'comp', 'cordic', 'cortex', 'crc', 'crs', 'dac', 'dma', 'dmamux', 'exti', 'fmac', 'fmc', 'gpio', 'hrtim', 'i2c', 'iwdg', 'lptim', 'lpuart', 'opamp', 'pwr', 'rcc', 'rng', 'rtc', 'spi', 'system', 'tim', 'ucpd', 'usart', 'usb', 'utils', 'wwdg'], value : [])
