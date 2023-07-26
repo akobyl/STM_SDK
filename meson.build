@@ -61,11 +61,12 @@ endif
 
 stm_sdk_lib = static_library('stm_sdk',
                              stm_sdk_srcs,
-                             include_directories : stm_sdk_incs,
-                             c_args : c_args,
+                             include_directories: stm_sdk_incs,
+                             c_args: c_args,
                             )
 
 stm_sdk_dep = declare_dependency(
-              include_directories : stm_sdk_incs,
-              link_with : stm_sdk_lib
+              include_directories: stm_sdk_incs,
+              link_with: stm_sdk_lib,
+              compile_args: c_args,
               )
