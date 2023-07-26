@@ -42,23 +42,22 @@ hal_root = 'HAL' / 'stm32' + family + 'xx_hal_driver'
 hal_include_dir = hal_root / 'Inc'
 hal_include = include_directories(hal_include_dir)
 hal_sources = []
+ll_sources = []
 
 hal_src_dir = hal_root / 'Src'
 foreach peripheral : peripherals
-  file_name = 'stm32' + family.to_lower() + '_ll_' + peripheral + '.c'
-  hal_sources += hal_src_dir / file_name
+  ll_file_name = 'stm32' + family.to_lower() + 'xx_ll_' + peripheral + '.c'
+  ll_sources += hal_src_dir / ll_file_name
+  
+  hal_file_name = 'stm32' + family.to_lower() + 'xx_hal_' + peripheral + '.c'
+  hal_sources += hal_src_dir / hal_file_name
 endforeach
 
-if 'adc' in peripherals
-  c_args += ['-DADC1', '-DADC2', '-DADC3', '-DADC4', '-DADC5']
-endif
-if 'gpio' in peripherals:
-  c_args += ['-DGPIOA', '-DGPIOB', '-DGPIOC', '-DGPIOD', '-DGPIOE', '-DGPIOF', '-DGPIOG']
-endif
-
-
 stm_sdk_incs += hal_include
-stm_sdk_srcs += hal_sources
+stm_sdk_srcs += ll_sources
+if use_hal
+  stm_sdk_srcs += hal_sources
+endif
 
 stm_sdk_lib = static_library('stm_sdk',
                              stm_sdk_srcs,
