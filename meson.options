@@ -1,4 +1,4 @@
-option('family', type : 'combo', choices : ['g4'], value : 'g4')
-option('chip', type : 'combo', choices : ['stm32g474', 'stm32g491'], value : 'stm32g474')
+option('chip', type : 'combo', choices : ['STM32F100xB', 'STM32F100xE', 'STM32F101x6', 'STM32F101xB', 'STM32F101xE', 'STM32F101xG', 'STM32F102x6', 'STM32F102xB', 'STM32F103x6', 'STM32F103xB', 'STM32F103xE', 'STM32F103xG', 'STM32F105xC', 'STM32F107xC', 'STM32G431xx', 'STM32G441xx', 'STM32G471xx', 'STM32G473xx', 'STM32G483xx', 'STM32G474xx', 'STM32G484xx', 'STM32G491xx', 'STM32G4A1xx', 'STM32GBK1CB'])
 option('peripherals', type : 'array', choices : ['adc', 'bus', 'comp', 'cordic', 'cortex', 'crc', 'crs', 'dac', 'dma', 'dmamux', 'exti', 'fmac', 'fmc', 'gpio', 'hrtim', 'i2c', 'iwdg', 'lptim', 'lpuart', 'opamp', 'pwr', 'rcc', 'rng', 'rtc', 'spi', 'system', 'tim', 'ucpd', 'usart', 'usb', 'utils', 'wwdg'], value : [])
 option('use_hal', type: 'boolean', value: false)
+

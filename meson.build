@@ -7,9 +7,9 @@ stm_sdk_srcs = []
 stm_sdk_incs = []
 
 chip = get_option('chip')
-family = get_option('family')
 peripherals = get_option('peripherals')
 use_hal = get_option('use_hal')
+family = chip[5:7]
 
 # CMSIS Core
 arm_cmsis_include = include_directories('cmsis_core/Core/Include')
@@ -17,20 +17,20 @@ arm_cmsis_include = include_directories('cmsis_core/Core/Include')
 stm_sdk_incs += arm_cmsis_include
 
 # ST CMSIS device
-c_args += '-DSTM32' + 'G4'
-c_args += '-D' + chip.to_upper() + 'xx'
+c_args += '-DSTM32' + family
+c_args += '-D' + chip
 c_args += '-DUSE_FULL_LL_DRIVER'
 
 if use_hal
   c_args += '-DUSE_HAL_DRIVER'
 endif
 
-cmsis_device_root = 'cmsis_device/cmsis_device_' + family
+cmsis_device_root = 'cmsis_device/cmsis_device_' + family.to_lower()
 cmsis_include_dir = cmsis_device_root / 'Include'
 cmsis_include = include_directories(cmsis_include_dir)
 
-startup_file = 'startup_' + chip + 'xx.s'
-system_file = 'system_stm32' + family + 'xx.c'
+startup_file = 'startup_' + chip.to_lower() + '.s'
+system_file = 'system_stm32' + family.to_lower() + 'xx.c'
 cmsis_sources = files(cmsis_device_root / 'Source/Templates/gcc' / startup_file,
                       cmsis_device_root / 'Source/Templates' / system_file)
 
