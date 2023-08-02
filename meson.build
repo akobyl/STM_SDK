@@ -38,7 +38,7 @@ stm_sdk_incs += cmsis_include
 stm_sdk_srcs += cmsis_sources
 
 # LL + HAL
-hal_root = 'HAL' / 'stm32' + family + 'xx_hal_driver' 
+hal_root = 'HAL' / 'stm32' + family.to_lower() + 'xx_hal_driver' 
 hal_include_dir = hal_root / 'Inc'
 hal_include = include_directories(hal_include_dir)
 hal_sources = []
