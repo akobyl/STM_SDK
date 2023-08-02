@@ -9,7 +9,7 @@ stm_sdk_incs = []
 chip = get_option('chip')
 peripherals = get_option('peripherals')
 use_hal = get_option('use_hal')
-family = chip[5:7]
+family = chip.substring(5,7)
 
 # CMSIS Core
 arm_cmsis_include = include_directories('cmsis_core/Core/Include')
