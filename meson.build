@@ -60,7 +60,7 @@ if use_hal
 endif
 
 stm_sdk_dep = declare_dependency(
-              include_directories: stm_sdk_incs,
-              sources = [stm_sdk_srcs],
               compile_args: c_args,
+              include_directories: stm_sdk_incs,
+              sources: stm_sdk_srcs,
               )
