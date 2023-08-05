@@ -59,14 +59,8 @@ if use_hal
   stm_sdk_srcs += hal_sources
 endif
 
-stm_sdk_lib = static_library('stm_sdk',
-                             stm_sdk_srcs,
-                             include_directories: stm_sdk_incs,
-                             c_args: c_args,
-                            )
-
 stm_sdk_dep = declare_dependency(
               include_directories: stm_sdk_incs,
-              link_with: stm_sdk_lib,
+              sources = [stm_sdk_srcs],
               compile_args: c_args,
               )
