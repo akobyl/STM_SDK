@@ -1,6 +1,6 @@
 project('STM_SDK',
         'c',
-        version : '0.1')
+        version : '0.2')
 
 c_args = []
 stm_sdk_srcs = []
@@ -12,18 +12,21 @@ use_hal = get_option('use_hal')
 family = chip.substring(5,7)
 
 # CMSIS Core
-arm_cmsis_include = include_directories('cmsis_core/Core/Include')
 
-stm_sdk_incs += arm_cmsis_include
 
 # ST CMSIS device
-c_args += '-DSTM32' + family
-c_args += '-D' + chip
-c_args += '-DUSE_FULL_LL_DRIVER'
+add_project_arguments('-DSTM32' + family, language:'c')
+chipoption = '-D' + chip
+add_project_arguments(chipoption, language:'c')
+add_project_arguments('-DUSE_FULL_LL_DRIVER', language:'c')
+add_project_arguments('-DSTM32G474xx', language: 'c')
 
 if use_hal
-  c_args += '-DUSE_HAL_DRIVER'
+  add_project_arguments('-DUSE_HAL_DRIVER', language:'c')
 endif
+
+arm_cmsis_include = include_directories('cmsis_core/Core/Include')
+stm_sdk_incs += arm_cmsis_include
 
 cmsis_device_root = 'cmsis_device/cmsis_device_' + family.to_lower()
 cmsis_include_dir = cmsis_device_root / 'Include'
@@ -59,8 +62,16 @@ if use_hal
   stm_sdk_srcs += hal_sources
 endif
 
+stm_sdk = static_library(
+  'stm_sdk',
+  stm_sdk_srcs,
+  install: false,
+  # native: false,
+  include_directories: stm_sdk_incs,
+  build_by_default: meson.is_subproject() == false,
+)
+
 stm_sdk_dep = declare_dependency(
-              compile_args: c_args,
               include_directories: stm_sdk_incs,
-              sources: stm_sdk_srcs,
+              link_with: stm_sdk,
               )
